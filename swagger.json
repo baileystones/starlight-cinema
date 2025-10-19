@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Starlight Cinema API",
+    "version": "1.0.0",
+    "description": "API for managing employees and positions at Starlight Cinema"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/employees": {
+      "get": { "summary": "Get all employees" },
+      "post": { "summary": "Create a new employee" }
+    },
+    "/positions": {
+      "get": { "summary": "Get all positions" },
+      "post": { "summary": "Create a new position" }
+    }
+  }
+}
