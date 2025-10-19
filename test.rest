@@ -1,0 +1,61 @@
+### GET all employees
+GET http://localhost:3000/employees
+Accept: application/json
+
+### POST create a new employee
+POST http://localhost:3000/employees
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "555-678-1234"
+}
+
+### GET employee by ID
+GET http://localhost:3000/employees/{{employeeId}}
+Accept: application/json
+
+### PUT update employee by ID
+PUT http://localhost:3000/employees/{{employeeId}}
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "email": "jane.doe@example.com",
+  "phone": "555-123-5678"
+}
+
+### DELETE employee by ID
+DELETE http://localhost:3000/employees/{{employeeId}}
+
+### GET all positions
+GET http://localhost:3000/positions
+Accept: application/json
+
+### POST create a new position
+POST http://localhost:3000/positions
+Content-Type: application/json
+
+{
+  "title": "Usher",
+  "description": "Handles ticket scanning and seating"
+}
+
+### GET position by ID
+GET http://localhost:3000/positions/{{positionId}}
+Accept: application/json
+
+### PUT update position by ID
+PUT http://localhost:3000/positions/{{positionId}}
+Content-Type: application/json
+
+{
+  "title": "Team Leader",
+  "description": "Leads team members"
+}
+
+### DELETE position by ID
+DELETE http://localhost:3000/positions/{{positionId}}

@@ -12,12 +12,159 @@
   ],
   "paths": {
     "/employees": {
-      "get": { "summary": "Get all employees" },
-      "post": { "summary": "Create a new employee" }
+      "get": {
+        "summary": "Get all employees",
+        "responses": {
+          "200": {
+            "description": "A list of employees",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "123",
+                    "firstName": "John",
+                    "lastName": "Doe",
+                    "email": "john.doe@example.com",
+                    "phone": "555-678-1234"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new employee",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "firstName": "John",
+                "lastName": "Doe",
+                "email": "john.doe@example.com",
+                "phone": "555-678-1234"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Employee created successfully"
+          }
+        }
+      }
+    },
+    "/employees/{id}": {
+      "get": {
+        "summary": "Get employee by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": { "200": { "description": "Employee data" } }
+      },
+      "put": {
+        "summary": "Update employee by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "firstName": "Jane",
+                "lastName": "Doe",
+                "email": "jane.doe@example.com",
+                "phone": "555-123-5678"
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Employee updated successfully" } }
+      },
+      "delete": {
+        "summary": "Delete employee by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Employee deleted successfully" } }
+      }
     },
     "/positions": {
-      "get": { "summary": "Get all positions" },
-      "post": { "summary": "Create a new position" }
+      "get": {
+        "summary": "Get all positions",
+        "responses": {
+          "200": {
+            "description": "A list of positions",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "_id": "456",
+                    "title": "Usher",
+                    "description": "Handles ticket scanning and seating"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new position",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "title": "Usher",
+                "description": "Handles ticket scanning and seating"
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Position created successfully" } }
+      }
+    },
+    "/positions/{id}": {
+      "get": {
+        "summary": "Get position by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Position data" } }
+      },
+      "put": {
+        "summary": "Update position by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "title": "Lead Usher",
+                "description": "Supervises ushers during shows"
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Position updated successfully" } }
+      },
+      "delete": {
+        "summary": "Delete position by ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Position deleted successfully" } }
+      }
     }
   }
 }
