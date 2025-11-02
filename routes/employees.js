@@ -1,3 +1,4 @@
+import { ensureAuthenticated } from "../middleware/authMiddleware.js";
 import express from "express";
 import {
   getAllEmployees,
@@ -9,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllEmployees);
-router.get("/:id", getEmployeeById);
-router.post("/", createEmployee);
-router.put("/:id", updateEmployee);
-router.delete("/:id", deleteEmployee);
+router.get("/", ensureAuthenticated, getAllEmployees);
+router.get("/:id", ensureAuthenticated, getEmployeeById);
+router.post("/", ensureAuthenticated, createEmployee);
+router.put("/:id", ensureAuthenticated, updateEmployee);
+router.delete("/:id", ensureAuthenticated, deleteEmployee);
 
 export default router;

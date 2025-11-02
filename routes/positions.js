@@ -1,3 +1,4 @@
+import { ensureAuthenticated } from "../middleware/authMiddleware.js";
 import express from "express";
 import {
   getAllPositions,
@@ -9,10 +10,10 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllPositions);
-router.get("/:id", getPositionById);
-router.post("/", createPosition);
-router.put("/:id", updatePosition);
-router.delete("/:id", deletePosition);
+router.get("/", ensureAuthenticated, getAllPositions);
+router.get("/:id", ensureAuthenticated,  getPositionById);
+router.post("/", ensureAuthenticated, createPosition);
+router.put("/:id", ensureAuthenticated, updatePosition);
+router.delete("/:id", ensureAuthenticated, deletePosition);
 
 export default router;
