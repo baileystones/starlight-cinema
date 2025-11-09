@@ -1,7 +1,8 @@
-### EMPLOYEE ROUTES ###
+### VARIABLES ###
+@employeeId = EMP001
+@positionId = 456
 
-@employeeId = 123456
-@positionId = 654321
+### EMPLOYEE ROUTES ###
 
 ### GET all employees
 GET http://localhost:3000/employees
@@ -16,8 +17,15 @@ Content-Type: application/json
   "lastName": "Doe",
   "email": "john.doe@example.com",
   "phone": "555-678-1234",
-  "employeeId": "123456",
-  "positionId": "654321"
+  "employeeId": "{{employeeId}}",
+  "hireDate": "2023-01-10",
+  "positionId": "{{positionId}}",
+  "trainedIn": {
+    "usher": true,
+    "door": false,
+    "box": false,
+    "concessions": false
+  }
 }
 
 ### GET employee by ID
@@ -32,7 +40,8 @@ Content-Type: application/json
   "firstName": "Jane",
   "lastName": "Doe",
   "email": "jane.doe@example.com",
-  "phone": "555-123-5678"
+  "phone": "555-123-5678",
+  "trainedIn": { "box": true, "concessions": true }
 }
 
 ### DELETE employee by ID
@@ -50,8 +59,9 @@ POST http://localhost:3000/positions
 Content-Type: application/json
 
 {
-  "title": "Usher",
-  "description": "Cleans theaters"
+  "title": "Manager",
+  "description": "Oversees operations and staff",
+  "payRate": 22.75
 }
 
 ### GET position by ID
@@ -63,8 +73,9 @@ PUT http://localhost:3000/positions/{{positionId}}
 Content-Type: application/json
 
 {
-  "title": "Team Leader",
-  "description": "Leads team members"
+  "title": "Lead Usher",
+  "description": "Supervises ushers during shifts",
+  "payRate": 17.5
 }
 
 ### DELETE position by ID

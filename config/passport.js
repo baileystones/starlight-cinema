@@ -25,12 +25,12 @@ passport.use(
 
 // Serialize user info for session handling
 passport.serializeUser((user, done) => {
-  done(null, user.googleId);
+  done(null, user);
 });
 
 // Deserialize user info for session handling
-passport.deserializeUser((id, done) => {
-  done(null, { googleId: id });
+passport.deserializeUser((user, done) => {
+  done(null, user);
 });
 
 
