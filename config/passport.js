@@ -15,8 +15,8 @@ passport.use(
       const user = {
         googleId: profile.id,
         displayName: profile.displayName,
-        emails: profile.emails,
-        photos: profile.photos
+        email: profile.emails && profile.emails.length > 0 ? profile.emails[0].value : null,
+        photo: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : null,
       };
       return done(null, user);
     }
@@ -32,6 +32,5 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-
 
 export default passport;

@@ -1,8 +1,7 @@
-### VARIABLES ###
-@employeeId = EMP001
-@positionId = 456
-
 ### EMPLOYEE ROUTES ###
+
+@employeeId = EMP002
+@positionId = 456
 
 ### GET all employees
 GET http://localhost:3000/employees
@@ -13,12 +12,12 @@ POST http://localhost:3000/employees
 Content-Type: application/json
 
 {
-  "firstName": "John",
+  "firstName": "Jane",
   "lastName": "Doe",
-  "email": "john.doe@example.com",
-  "phone": "555-678-1234",
+  "email": "jane.doe@example.com",
+  "phoneNumber": "555-678-1234",
   "employeeId": "{{employeeId}}",
-  "hireDate": "2023-01-10",
+  "hireDate": "2021-11-10",
   "positionId": "{{positionId}}",
   "trainedIn": {
     "usher": true,
@@ -40,7 +39,7 @@ Content-Type: application/json
   "firstName": "Jane",
   "lastName": "Doe",
   "email": "jane.doe@example.com",
-  "phone": "555-123-5678",
+  "phoneNumber": "555-111-2222",
   "trainedIn": { "box": true, "concessions": true }
 }
 
@@ -59,9 +58,9 @@ POST http://localhost:3000/positions
 Content-Type: application/json
 
 {
-  "title": "Manager",
-  "description": "Oversees operations and staff",
-  "payRate": 22.75
+  "title": "Usher",
+  "description": "Cleans theaters",
+  "payRate": 15.25
 }
 
 ### GET position by ID
@@ -73,8 +72,8 @@ PUT http://localhost:3000/positions/{{positionId}}
 Content-Type: application/json
 
 {
-  "title": "Lead Usher",
-  "description": "Supervises ushers during shifts",
+  "title": "Team Leader",
+  "description": "Leads team members",
   "payRate": 17.5
 }
 
