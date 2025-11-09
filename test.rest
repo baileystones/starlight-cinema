@@ -1,5 +1,8 @@
 ### EMPLOYEE ROUTES ###
 
+@employeeId = 123456
+@positionId = 654321
+
 ### GET all employees
 GET http://localhost:3000/employees
 Accept: application/json
@@ -12,7 +15,9 @@ Content-Type: application/json
   "firstName": "John",
   "lastName": "Doe",
   "email": "john.doe@example.com",
-  "phone": "555-678-1234"
+  "phone": "555-678-1234",
+  "employeeId": "123456",
+  "positionId": "654321"
 }
 
 ### GET employee by ID

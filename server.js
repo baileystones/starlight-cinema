@@ -19,26 +19,41 @@ const swaggerDocument = JSON.parse(fs.readFileSync("./swagger.json", "utf8"));
 const app = express();
 app.use(express.json());
 
-//Enable sessions and passport
+// Trust proxy for Render (needed for secure cookies)
+app.set("trust proxy", 1);
+
+// Session setup (only once)
 app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: false,
-    })
+  session({
+    secret: process.env.SESSION_SECRET || "change_me",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24, 
+    },
+  })
 );
 
-//Initialize passport and session
+// Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
-//Routes
-app.use("/auth", authRoutes);
+// Home route
+app.get("/", (req, res) => {
+  res.send(`
+    <h2> Starlight Cinema API</h2>
+    <p><a href="/auth/google">Log in with Google</a> | <a href="/api-docs">View API Docs</a></p>
+  `);
+});
 
+// Routes
+app.use("/auth", authRoutes);
 app.use("/employees", employeeRoutes);
 app.use("/positions", positionRoutes);
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -12,13 +12,26 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:3000/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
-      return done(null, profile);
+      const user = {
+        googleId: profile.id,
+        displayName: profile.displayName,
+        emails: profile.emails,
+        photos: profile.photos
+      };
+      return done(null, user);
     }
   )
 );
 
-// Serialize/deserialize user info for session handling
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((obj, done) => done(null, obj));
+// Serialize user info for session handling
+passport.serializeUser((user, done) => {
+  done(null, user.googleId);
+});
+
+// Deserialize user info for session handling
+passport.deserializeUser((id, done) => {
+  done(null, { googleId: id });
+});
+
 
 export default passport;

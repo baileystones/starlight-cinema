@@ -23,6 +23,7 @@ export const getEmployeeById = async (req, res) => {
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
+
     res.status(200).json(employee);
   } catch (err) {
     console.error(err);
@@ -30,13 +31,20 @@ export const getEmployeeById = async (req, res) => {
   }
 };
 
-// POST new employee
+// POST create new employee
 export const createEmployee = async (req, res) => {
   try {
-    const { firstName, lastName, email, phone } = req.body;
+    const { firstName, lastName, email, employeeId } = req.body;
 
-    if (!firstName || !lastName || !email) {
-      return res.status(400).json({ message: "Missing required fields: firstName, lastName, and email are required." });
+    if (!firstName || !lastName || !email || !employeeId) {
+      return res
+        .status(400)
+        .json({ message: "Missing required fields: firstName, lastName, email, employeeId" });
+    }
+
+    const exists = await Employee.findOne({ employeeId });
+    if (exists) {
+      return res.status(400).json({ message: "Employee with that ID already exists." });
     }
 
     const employee = new Employee(req.body);
@@ -44,7 +52,10 @@ export const createEmployee = async (req, res) => {
     res.status(201).json(newEmployee);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ message: "Bad Request: " + err.message });
+    if (err.name === "ValidationError") {
+      return res.status(400).json({ message: "Bad Request: " + err.message });
+    }
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
 
@@ -64,7 +75,7 @@ export const updateEmployee = async (req, res) => {
       return res.status(404).json({ message: "Employee not found" });
     }
 
-    return res.status(204).send();
+    res.status(204).send();
   } catch (err) {
     console.error(err);
     res.status(400).json({ message: "Bad Request: " + err.message });

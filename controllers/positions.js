@@ -8,7 +8,7 @@ export const getAllPositions = async (req, res) => {
     res.status(200).json(positions);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error: " + err.message });
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
 
@@ -16,17 +16,18 @@ export const getAllPositions = async (req, res) => {
 export const getPositionById = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ error: "Invalid ID format." });
+      return res.status(400).json({ message: "Invalid ID format." });
     }
 
     const position = await Position.findById(req.params.id);
     if (!position) {
-      return res.status(404).json({ error: "Position not found" });
+      return res.status(404).json({ message: "Position not found" });
     }
+
     res.status(200).json(position);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error: " + err.message });
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
 
@@ -35,15 +36,15 @@ export const createPosition = async (req, res) => {
   try {
     const { title } = req.body;
     if (!title) {
-      return res.status(400).json({ error: "Missing required field: title" });
+      return res.status(400).json({ message: "Missing required field: title" });
     }
 
     const position = new Position(req.body);
     await position.save();
-    res.status(201).json({ id: position._id });
+    res.status(201).json(position);
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: "Bad Request: " + err.message });
+    res.status(400).json({ message: "Bad Request: " + err.message });
   }
 };
 
@@ -51,7 +52,7 @@ export const createPosition = async (req, res) => {
 export const updatePosition = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ error: "Invalid ID format." });
+      return res.status(400).json({ message: "Invalid ID format." });
     }
 
     const updatedPosition = await Position.findByIdAndUpdate(req.params.id, req.body, {
@@ -60,13 +61,13 @@ export const updatePosition = async (req, res) => {
     });
 
     if (!updatedPosition) {
-      return res.status(404).json({ error: "Position not found" });
+      return res.status(404).json({ message: "Position not found" });
     }
 
-    return res.status(204).send();
+    res.status(204).send();
   } catch (err) {
     console.error(err);
-    res.status(400).json({ error: "Bad Request: " + err.message });
+    res.status(400).json({ message: "Bad Request: " + err.message });
   }
 };
 
@@ -74,17 +75,17 @@ export const updatePosition = async (req, res) => {
 export const deletePosition = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-      return res.status(400).json({ error: "Invalid ID format." });
+      return res.status(400).json({ message: "Invalid ID format." });
     }
 
     const deletedPosition = await Position.findByIdAndDelete(req.params.id);
     if (!deletedPosition) {
-      return res.status(404).json({ error: "Position not found" });
+      return res.status(404).json({ message: "Position not found" });
     }
 
     res.status(200).json({ message: "Position deleted successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error: " + err.message });
+    res.status(500).json({ message: "Server error: " + err.message });
   }
 };
